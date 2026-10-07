@@ -4,7 +4,7 @@ metadata:
   name: hotel-booking-service
   namespace: hotel-booking
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: hotel-booking
   ports:
