@@ -6,8 +6,6 @@ CONTAINER_NAME="devops-assessment-postgres"
 DATABASE_NAME="booking_db"
 DATABASE_USER="booking_user"
 
-BACKUP_DIR="$(dirname "$0")/../backups"
-
 if [ "$#" -ne 1 ]; then
     echo "Usage: $0 <backup-file>"
     echo "Example: $0 backups/booking_db_20261007_153000.dump"
@@ -18,6 +16,11 @@ BACKUP_FILE="$1"
 
 if [ ! -f "$BACKUP_FILE" ]; then
     echo "ERROR: Backup file not found: $BACKUP_FILE"
+    exit 1
+fi
+
+if ! docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null | grep -q "true"; then
+    echo "ERROR: PostgreSQL container '$CONTAINER_NAME' is not running."
     exit 1
 fi
 
@@ -37,9 +40,7 @@ docker exec "$CONTAINER_NAME" \
 cat "$BACKUP_FILE" | docker exec -i "$CONTAINER_NAME" \
     pg_restore \
     -U "$DATABASE_USER" \
-    -d "$DATABASE_NAME" \
-    --clean \
-    --if-exists
+    -d "$DATABASE_NAME"
 
 echo "Restore completed successfully."
 

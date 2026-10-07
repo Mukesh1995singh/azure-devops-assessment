@@ -12,6 +12,11 @@ BACKUP_FILE="${BACKUP_DIR}/booking_db_${TIMESTAMP}.dump"
 
 mkdir -p "$BACKUP_DIR"
 
+if ! docker inspect -f '{{.State.Running}}' "$CONTAINER_NAME" 2>/dev/null | grep -q "true"; then
+    echo "Error: PostgreSQL container '$CONTAINER_NAME' is not running."
+    exit 1
+fi
+
 echo "Starting PostgreSQL backup..."
 
 docker exec "$CONTAINER_NAME" \
