@@ -1,4 +1,4 @@
-name: Docker Build
+name: Application CI
 
 on:
   pull_request:
@@ -19,9 +19,35 @@ permissions:
   contents: read
 
 jobs:
+  test:
+    name: Application Test
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
   docker-build:
     name: Build Docker Image
     runs-on: ubuntu-latest
+    needs: test
 
     steps:
       - name: Checkout
