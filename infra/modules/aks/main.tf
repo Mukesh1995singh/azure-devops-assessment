@@ -35,4 +35,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   role_based_access_control_enabled = true
+
+  ingress_application_gateway {
+    gateway_id = var.application_gateway_id
+  }
 }

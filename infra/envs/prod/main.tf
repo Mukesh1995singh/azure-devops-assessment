@@ -33,7 +33,9 @@ module "aks" {
   subnet_name             = var.aks_subnet_name
   subnet_address_prefixes = var.aks_subnet_address_prefixes
 
-  depends_on = [module.network]
+  application_gateway_id = module.appgateway.appgateway_id
+
+  depends_on = [module.network, module.appgateway]
 }
 
 module "appgateway" {

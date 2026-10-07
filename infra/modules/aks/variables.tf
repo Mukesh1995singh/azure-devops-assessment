@@ -41,3 +41,7 @@ variable "subnet_name" {
 variable "subnet_address_prefixes" {
   type = list(string)
 }
+
+variable "application_gateway_id" {
+  type = string
+}
