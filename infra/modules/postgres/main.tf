@@ -52,3 +52,12 @@ resource "azurerm_postgresql_flexible_server" "postgres" {
     azurerm_private_dns_zone_virtual_network_link.postgres
   ]
 }
+
+resource "azurerm_management_lock" "postgres_delete" {
+  count = var.deletion_protection_enabled ? 1 : 0
+
+  name       = "${var.server_name}-delete-protection"
+  scope      = azurerm_postgresql_flexible_server.postgres.id
+  lock_level = "CanNotDelete"
+  notes      = "Prevents accidental deletion of the production PostgreSQL server."
+}

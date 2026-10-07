@@ -37,3 +37,5 @@ postgres_subnet_address_prefixes = ["10.20.3.0/24"]
 
 postgres_private_dns_zone_name = "prod.postgres.database.azure.com"
 postgres_private_dns_link_name = "private-dns-link-prod"
+
+postgres_deletion_protection_enabled = true

@@ -69,6 +69,7 @@ module "postgres" {
   zone                         = var.postgres_zone
   backup_retention_days        = var.postgres_backup_retention_days
   geo_redundant_backup_enabled = var.postgres_geo_redundant_backup_enabled
+  deletion_protection_enabled  = var.postgres_deletion_protection_enabled
 
   vnet_name               = var.vnet_name
   vnet_id                 = module.network.vnet_id

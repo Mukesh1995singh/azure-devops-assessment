@@ -67,3 +67,8 @@ variable "private_dns_zone_name" {
 variable "private_dns_link_name" {
   type = string
 }
+
+variable "deletion_protection_enabled" {
+  type    = bool
+  default = false
+}

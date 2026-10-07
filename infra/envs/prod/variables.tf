@@ -127,3 +127,8 @@ variable "postgres_private_dns_zone_name" {
 variable "postgres_private_dns_link_name" {
   type = string
 }
+
+variable "postgres_deletion_protection_enabled" {
+  type    = bool
+  default = false
+}
