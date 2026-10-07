@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hotel-booking
+  namespace: hotel-booking
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: hotel-booking
+  template:
+    metadata:
+      labels:
+        app: hotel-booking
+    spec:
+      containers:
+        - name: hotel-booking
+          image: REPLACE_WITH_ACR_IMAGE
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 20

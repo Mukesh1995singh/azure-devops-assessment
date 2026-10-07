@@ -1,0 +1,33 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+
+# Terraform variable files
+*.tfvars
+!infra/envs/dev/dev.tfvars
+!infra/envs/prod/prod.tfvars
+
+# Terraform sensitive variable files
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Terraform lock file should be committed
+# .terraform.lock.hcl is intentionally NOT ignored
+
+# PostgreSQL backups
+backups/
+*.dump
+
+# Environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
