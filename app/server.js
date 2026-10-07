@@ -82,6 +82,10 @@ app.get("/api/bookings/summary", async (req, res) => {
   }
 });
 
-app.listen(port, "0.0.0.0", () => {
-  console.log(`Hotel Booking API listening on port ${port}`);
-});
+if (require.main === module) {
+  app.listen(port, "0.0.0.0", () => {
+    console.log(`Hotel Booking API listening on port ${port}`);
+  });
+}
+
+module.exports = app;
